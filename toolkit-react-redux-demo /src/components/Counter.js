@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'; // manage a part of our state managed by the store
 // import { useStore } from 'react-redux'; // utap directly into our store
 import classes from './Counter.module.css';
-import { counterActions } from '../store';
+import { counterActions } from '../store/counter-slice';
 
 const Counter = () => {
   //select which data we want to select from store
