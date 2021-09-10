@@ -5,8 +5,11 @@ import classes from './Counter.module.css';
 const Counter = () => {
   //select which data we want to select from store
   const counter = useSelector(state => state.counter);
+  const show = useSelector(state => state.showCounter)
   const dispatch = useDispatch();
-  const toggleCounterHandler = () => { };
+  const toggleCounterHandler = () => {
+    dispatch({ type: 'toggle' })
+  };
 
   const incrementHandler = () => {
     dispatch({ type: 'increment', amount: 5 })
@@ -22,7 +25,7 @@ const Counter = () => {
   return (
     <main className={classes.counter}>
       <h1>Redux Functional Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {show && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={increaseHandler}>Increment by 5</button>
