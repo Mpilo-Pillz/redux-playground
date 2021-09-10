@@ -5,8 +5,10 @@ import { counterActions } from '../store';
 
 const Counter = () => {
   //select which data we want to select from store
-  const counter = useSelector(state => state.counter);
-  const show = useSelector(state => state.showCounter)
+  // const counter = useSelector(state => state.counter);
+  const counter = useSelector(state => state.counter.counter);
+  const show = useSelector(state => state.counter.showCounter)
+  // const show = useSelector(state => state.showCounter)
   const dispatch = useDispatch();
   const toggleCounterHandler = () => {
     // dispatch({ type: 'toggle' })
