@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "quotes",
+  "collectionName": "comments",
   "info": {
-    "name": "quote",
+    "name": "comment",
     "description": ""
   },
   "options": {
@@ -12,14 +12,8 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "author": {
-      "type": "string"
-    },
     "text": {
       "type": "text"
-    },
-    "comments": {
-      "collection": "comment"
     }
   }
 }
