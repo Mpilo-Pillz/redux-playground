@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "carts",
+  "collectionName": "items",
   "info": {
-    "name": "cart",
-    "description": ""
+    "name": "items"
   },
   "options": {
     "increments": true,
@@ -12,11 +11,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "totalQuantity": {
+    "quantity": {
       "type": "integer"
     },
-    "items": {
-      "collection": "items"
+    "name": {
+      "type": "string"
+    },
+    "totalPrice": {
+      "type": "float"
+    },
+    "price": {
+      "type": "float"
     }
   }
 }
