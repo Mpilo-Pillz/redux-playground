@@ -17,7 +17,7 @@ export const fetchCartData = () => {
         try {
             const cartData = await fetchData();
             console.log("Cart-->", cartData);
-            dispatch(cartActions.replaceCart(cartData[0]))
+            dispatch(cartActions.replaceCart({ items: cartData.items || [], totalQuantity: cartData.totalQuantity }))
         } catch (error) {
             dispatch(
                 uiActions.showNotification({
@@ -44,7 +44,7 @@ export const sendCartData = (cart) => {
             const response = await fetch('http://localhost:1337/items/1',
                 {
                     method: 'PUT',
-                    body: JSON.stringify(cart)
+                    body: JSON.stringify({ items: cart.items, totalQuantity: cart.totalQuantity })
                 }
             );
             if (!response.ok) {
