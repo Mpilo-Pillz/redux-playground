@@ -4,8 +4,13 @@ import Backdrop from './Backdrop';
 
 function Todo(props) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
     function deleteHandler() {
         setModalIsOpen(true)
+    }
+
+    function closeModalHandler() {
+        setModalIsOpen(false)
     }
     return (
         <div className="card">
@@ -15,8 +20,8 @@ function Todo(props) {
             </div>
             {/* {modalIsOpen ? <Modal /> : null} */}
             {/* using a shortcut that says if both conditions are true the second value is returned*/} 
-            {modalIsOpen && <Modal /> }
-            {modalIsOpen && <Backdrop /> }
+            {modalIsOpen && <Modal onCancel={closeModalHandler} onConfirm={closeModalHandler}/> }
+            {modalIsOpen && <Backdrop onCancel={closeModalHandler}/> }
             
         </div>
     );
