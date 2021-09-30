@@ -3,11 +3,12 @@ import MainNavigation from "./components/layout/MainNavigation";
 import AllMeetUpsPage from "./pages/AllMeetUps";
 import Favorites from "./pages/Favorites";
 import NewMeetUps from "./pages/NewMeetUps";
+import Layout from "./components/layout/Layout";
 
 // switch makes sure that one component is rendered at a time else all will render
 function App() {
-  return <div>
-    <MainNavigation />
+  return <Layout>
+
     <Switch>
       <Route path='/' exact>
         <AllMeetUpsPage />
@@ -19,7 +20,7 @@ function App() {
         <Favorites />
       </Route>
     </Switch>
-  </div>;
+  </Layout>;
 }
 
 export default App;
