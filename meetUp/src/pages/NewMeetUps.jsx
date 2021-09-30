@@ -1,5 +1,5 @@
 function NewMeetUps() {
-    <div>All meet up</div>
+   return <div>All meet up</div>
 }
 
 export default NewMeetUps
