@@ -1,5 +1,4 @@
 import { Route, Switch } from "react-router";
-import MainNavigation from "./components/layout/MainNavigation";
 import AllMeetUpsPage from "./pages/AllMeetUps";
 import Favorites from "./pages/Favorites";
 import NewMeetUps from "./pages/NewMeetUps";
@@ -13,10 +12,10 @@ function App() {
       <Route path='/' exact>
         <AllMeetUpsPage />
       </Route>
-      <Route path="new-meetups">
+      <Route path="/new-meetups">
         <NewMeetUps />
       </Route>
-      <Route path="favorites">
+      <Route path="/favorites">
         <Favorites />
       </Route>
     </Switch>

@@ -1,5 +1,12 @@
+import NewMeetUpForm from "./NewMeetUpForm"
+
 function NewMeetUps() {
-   return <div>All meet up</div>
+   return <section>
+       <h1>
+       Add New Meetup
+       </h1>
+       <NewMeetUpForm />
+       </section>
 }
 
 export default NewMeetUps
