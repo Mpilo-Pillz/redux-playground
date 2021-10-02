@@ -3,7 +3,7 @@ import classes from './NewMeetupFrom.module.css';
 
 function NewMeetUpForm() {
     return <Card>
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={(e) => {e.preventDefault()}}>
             <div className={classes.control}>
                 <label htmlFor="title">Meetup Title</label>
                 <input type="text" required id="title" />
