@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import MeetupList from "../components/meetups/MeetUpList";
 
 const DUMMY_DATA = [
@@ -23,9 +24,29 @@ const DUMMY_DATA = [
 
 
 function AllMeetUpsPage() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadedMeetups, setLoadedMeetups ] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:1337/meetups').then((response) => {
+      return response.json()
+    }).then((data) => {
+      setIsLoading(false)
+      setLoadedMeetups(data)
+    })
+  }, [])
+
+  if(isLoading) {
+    return(
+      <section>
+        <p>Loading...</p>
+      </section>
+    )
+  }
+  
    return  (<section>
        <h1>All meet up</h1>
-       <MeetupList meetups={DUMMY_DATA}/>
+       <MeetupList meetups={setLoadedMeetups}/>
        
        </section>)
 }
