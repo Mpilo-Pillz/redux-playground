@@ -28,11 +28,13 @@ function AllMeetUpsPage() {
   const [loadedMeetups, setLoadedMeetups ] = useState([])
 
   useEffect(() => {
+    setIsLoading(true)
     fetch('http://localhost:1337/meetups').then((response) => {
       return response.json()
     }).then((data) => {
       setIsLoading(false)
       setLoadedMeetups(data)
+      // the above to are not dependencies beaucse react guarantees that they will never change
     })
   }, [])
 
@@ -46,7 +48,7 @@ function AllMeetUpsPage() {
   
    return  (<section>
        <h1>All meet up</h1>
-       <MeetupList meetups={setLoadedMeetups}/>
+       <MeetupList meetups={loadedMeetups}/>
        
        </section>)
 }
