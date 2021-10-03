@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "meetups",
+  "info": {
+    "name": "meetup"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}
