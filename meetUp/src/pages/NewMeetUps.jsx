@@ -1,8 +1,10 @@
 import NewMeetUpForm from "./NewMeetUpForm"
+import { useHistory } from 'react-router-dom';
 
 function NewMeetUps() {
-    
+    const history = useHistory()
     function addMeetupHandler(meetupData) {
+        
         fetch('http://localhost:1337/meetups',
          {
              method: 'POST',
@@ -11,7 +13,9 @@ function NewMeetUps() {
              },
             body: JSON.stringify(meetupData),
             }
-         )
+         ).then(() => {
+             history.replace('/') // disable the back button going back to the form
+         })
     }
    return <section>
        <h1>
