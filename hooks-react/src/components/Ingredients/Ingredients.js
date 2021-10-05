@@ -8,10 +8,16 @@ function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
 
   const addIngredientHandler = (ingredient) => {
-    setUserIngredients((prevIngredients) => [
+    fetch('http://localhost:1337/ingredients', {
+      method: 'POST',
+      body: JSON.stringify(ingredient),
+      headers: { "Content-Type": "application/json" }
+    }).then(response => {
+      return response.json();
+    }).then((responseData) => setUserIngredients((prevIngredients) => [
       ...prevIngredients,
-      { id: Math.random().toString(), ...ingredient },
-    ]);
+      { id: responseData.id, ...ingredient },
+    ]))
   };
   return (
     <div className="App">
