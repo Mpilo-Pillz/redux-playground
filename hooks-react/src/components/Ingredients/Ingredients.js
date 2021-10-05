@@ -15,6 +15,10 @@ function Ingredients() {
       })
   }, [])
 
+  const filteredIngredientsHandler = filteredIngredients => {
+    setUserIngredients(filteredIngredients)
+  }
+
   const addIngredientHandler = (ingredient) => {
     fetch('http://localhost:1337/ingredients', {
       method: 'POST',
@@ -32,7 +36,7 @@ function Ingredients() {
       <IngredientForm onAddIngredient={addIngredientHandler} />
 
       <section>
-        <Search />
+        <Search onLoadIngredients={filteredIngredientsHandler} />
         <IngredientList ingredients={userIngredients} onRemoveItem={() => { }} />
       </section>
     </div>
