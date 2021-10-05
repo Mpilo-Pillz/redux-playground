@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
@@ -6,6 +6,14 @@ import IngredientList from "./IngredientList";
 
 function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:1337/ingredients').then(response => response.json())
+      .then((responseData) => {
+        console.log("RespData-->", responseData);
+        setUserIngredients(responseData)
+      })
+  }, [])
 
   const addIngredientHandler = (ingredient) => {
     fetch('http://localhost:1337/ingredients', {
