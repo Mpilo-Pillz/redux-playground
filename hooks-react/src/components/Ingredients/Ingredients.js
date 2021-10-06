@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
@@ -15,9 +15,11 @@ function Ingredients() {
       })
   }, [])
 
-  const filteredIngredientsHandler = filteredIngredients => {
+
+  // app got into a rerenderloop so we cache this function so it survives re-render cycles
+  const filteredIngredientsHandler = useCallback(() => filteredIngredients => {
     setUserIngredients(filteredIngredients)
-  }
+  }, [])
 
   const addIngredientHandler = (ingredient) => {
     fetch('http://localhost:1337/ingredients', {
