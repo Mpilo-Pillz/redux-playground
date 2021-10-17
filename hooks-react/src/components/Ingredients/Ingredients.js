@@ -7,13 +7,13 @@ import IngredientList from "./IngredientList";
 function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
 
-  useEffect(() => {
-    fetch('http://localhost:1337/ingredients').then(response => response.json())
-      .then((responseData) => {
-        console.log("RespData-->", responseData);
-        setUserIngredients(responseData)
-      })
-  }, [])
+  // useEffect(() => {
+  //   fetch('http://localhost:1337/ingredients').then(response => response.json())
+  //     .then((responseData) => {
+  //       console.log("RespData-->", responseData);
+  //       setUserIngredients(responseData)
+  //     })
+  // }, [])
 
 
   // app got into a rerenderloop so we cache this function so it survives re-render cycles
