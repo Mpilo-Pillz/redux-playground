@@ -8,12 +8,21 @@ const Search = React.memo(props => {
   const [enteredFilter, setEnteredFilter] = useState('');
 
   useEffect(() => {
-    const query = enteredFilter.length === 0 ? '' : `/${enteredFilter}`
+    const query = enteredFilter.length === 0 ? '' : `?title=${enteredFilter}`
     fetch(`http://localhost:1337/ingredients${query}`).then(response => response.json())
       .then((responseData) => {
         console.log("RespData-->", responseData);
+        const loadedIngredients = [];
+        for (const key in responseData) {
+          loadedIngredients.push({
+            id: key,
+            title: responseData[key].title,
+            amount: responseData[key].amount
+          })
+        }
+        onLoadIngredients(loadedIngredients)
         // setEnteredFilter(responseData)
-        onLoadIngredients(responseData)
+        // onLoadIngredients(responseData)
       })
   }, [enteredFilter, onLoadIngredients])
 

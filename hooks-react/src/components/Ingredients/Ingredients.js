@@ -17,7 +17,7 @@ function Ingredients() {
 
 
   // app got into a rerenderloop so we cache this function so it survives re-render cycles
-  const filteredIngredientsHandler = useCallback(() => filteredIngredients => {
+  const filteredIngredientsHandler = useCallback(filteredIngredients => {
     setUserIngredients(filteredIngredients)
   }, [])
 
