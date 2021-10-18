@@ -17,8 +17,9 @@ const Search = React.memo(props => {
             console.log("RespData-->", responseData);
             const loadedIngredients = [];
             for (const key in responseData) {
+              console.log("key-->", key);
               loadedIngredients.push({
-                id: key,
+                id: responseData[key].id,
                 title: responseData[key].title,
                 amount: responseData[key].amount
               })

@@ -33,13 +33,23 @@ function Ingredients() {
       { id: responseData.id, ...ingredient },
     ]))
   };
+
+  const removeIngredientHandler = ingredientId => {
+    fetch(`http://localhost:1337/ingredients/${ingredientId}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId))
+      })
+  }
   return (
     <div className="App">
       <IngredientForm onAddIngredient={addIngredientHandler} />
 
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler} />
-        <IngredientList ingredients={userIngredients} onRemoveItem={() => { }} />
+        <IngredientList ingredients={userIngredients} onRemoveItem={removeIngredientHandler} />
+        {/* <IngredientList ingredients={userIngredients} onRemoveItem={(id) => console.log("DEL--->", id)} /> */}
       </section>
     </div>
   );
