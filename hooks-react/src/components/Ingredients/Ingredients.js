@@ -41,10 +41,14 @@ function Ingredients() {
 
   const removeIngredientHandler = ingredientId => {
     setIsLoading(true);
-    fetch(`http://localhost:13337/ingredients/${ingredientId}`, {
+    fetch(`http://localhost:1337/ingredients/${ingredientId}`, {
       method: 'DELETE',
     })
-      .then(() => {
+      .then((response) => {
+        if (!response.ok) {
+          setError("Something went wrong");
+          setIsLoading(false);
+        }
         setIsLoading(false);
         setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId))
       }).catch(error => {
