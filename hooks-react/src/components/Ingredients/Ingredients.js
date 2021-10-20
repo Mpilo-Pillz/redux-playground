@@ -1,13 +1,30 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useReducer, useCallback } from "react";
 
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
 import IngredientList from "./IngredientList";
 import ErrorModal from '../UI/ErrorModal';
 
+// reducers are functions that take some input and return som outpur
+const ingredientReducer = (currentIngredients, action) => {
+  switch (action.type) {
+    case 'SET':
+      return action.ingredients;
+
+    case 'ADD':
+      return [...currentIngredients, action.ingredient];
+
+    case 'DELETE':
+      return currentIngredients.filter(ing => ing.id !== action.id);
+
+    default:
+      throw new Error('Should never get here please handle all cases')
+  }
+}
 
 function Ingredients() {
-  const [userIngredients, setUserIngredients] = useState([]);
+  const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
+  // const [userIngredients, setUserIngredients] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   // useEffect(() => {
@@ -21,7 +38,8 @@ function Ingredients() {
 
   // app got into a rerenderloop so we cache this function so it survives re-render cycles
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
-    setUserIngredients(filteredIngredients)
+    dispatch({ type: 'SET', ingredients: filteredIngredients })
+    // setUserIngredients(filteredIngredients)
   }, [])
 
   const addIngredientHandler = (ingredient) => {
@@ -33,10 +51,14 @@ function Ingredients() {
     }).then(response => {
       setIsLoading(false)
       return response.json();
-    }).then((responseData) => setUserIngredients((prevIngredients) => [
-      ...prevIngredients,
-      { id: responseData.id, ...ingredient },
-    ]))
+    }).then((responseData) => {
+      dispatch({ type: 'ADD', ingredient: { id: responseData.name, ...ingredient } })
+    })
+
+    // .then((responseData) => setUserIngredients((prevIngredients) => [
+    //   ...prevIngredients,
+    //   { id: responseData.id, ...ingredient },
+    // ]))
   };
 
   const removeIngredientHandler = ingredientId => {
@@ -50,7 +72,8 @@ function Ingredients() {
           setIsLoading(false);
         }
         setIsLoading(false);
-        setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId))
+        dispatch({ type: 'DELETE', id: ingredientId })
+        // setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId))
       }).catch(error => {
         setError(error.message);
         setIsLoading(false);
