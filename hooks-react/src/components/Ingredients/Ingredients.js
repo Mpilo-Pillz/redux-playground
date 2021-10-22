@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer, useCallback } from "react";
+import React, { useEffect, useState, useReducer, useCallback, useMemo } from "react";
 
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
@@ -58,9 +58,9 @@ function Ingredients() {
     // setUserIngredients(filteredIngredients)
   }, [])
 
-  const addIngredientHandler = (ingredient) => {
+  const addIngredientHandler = useCallback((ingredient) => {
     // setIsLoading(true)
-    dispatchHttp({ type: 'SEND' })
+    dispatchHttp({ type: 'SEND' }) // no need to specify this as a dependency for useCallback becuase it does not change between render cycles as it is managed by react
     fetch('http://localhost:1337/ingredients', {
       method: 'POST',
       body: JSON.stringify(ingredient),
@@ -77,9 +77,9 @@ function Ingredients() {
     //   ...prevIngredients,
     //   { id: responseData.id, ...ingredient },
     // ]))
-  };
+  }, []);
 
-  const removeIngredientHandler = ingredientId => {
+  const removeIngredientHandler = useCallback(ingredientId => {
     // setIsLoading(true);
     dispatchHttp({ type: 'SEND' })
     fetch(`http://localhost:1337/ingredients/${ingredientId}`, {
@@ -100,11 +100,16 @@ function Ingredients() {
         // setIsLoading(false);
         dispatchHttp({ type: 'ERROR', errorMessage: error.message })
       })
-  }
-  const clearError = () => {
+  }, [])
+
+  const clearError = useCallback(() => {
     // setError(null);
     dispatchHttp({ type: 'CLEAR' })
-  }
+  }, [])
+
+  const ingredientList = useMemo(() => {
+    return <IngredientList ingredients={userIngredients} onRemoveItem={removeIngredientHandler} />
+  }, [userIngredients, removeIngredientHandler]) // remove ingredient handler is an optional dependency only becuase it wont rerender because it is already wrapped in a use callback
   return (
     <div className="App">
       {/* {error && <ErrorModal onClose={clearError}>{error}</ErrorModal>} */}
@@ -114,7 +119,8 @@ function Ingredients() {
 
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler} />
-        <IngredientList ingredients={userIngredients} onRemoveItem={removeIngredientHandler} />
+        {ingredientList}
+        {/* <IngredientList ingredients={userIngredients} onRemoveItem={removeIngredientHandler} /> */}
         {/* <IngredientList ingredients={userIngredients} onRemoveItem={(id) => console.log("DEL--->", id)} /> */}
       </section>
     </div>

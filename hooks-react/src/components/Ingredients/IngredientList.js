@@ -4,6 +4,7 @@ import './IngredientList.css';
 
 const IngredientList = props => {
   console.log('-->', props);
+  console.log('rendering ingredient list');
   return (
     <section className="ingredient-list">
       <h2>Loaded Ingredients</h2>

@@ -8,6 +8,8 @@ const IngredientForm = React.memo(props => {
   const [enteredTitle, setEnteredTitle] = useState('');
   const [enteredAmount, setEnteredAmount] = useState('');
 
+  console.log("remove useCallBack to see this log in every rerender")
+
   const submitHandler = event => {
     event.preventDefault();
     props.onAddIngredient({ title: enteredTitle, amount: enteredAmount })
