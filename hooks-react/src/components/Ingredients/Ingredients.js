@@ -27,7 +27,7 @@ const ingredientReducer = (currentIngredients, action) => {
 
 function Ingredients() {
   const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
-  const { isLoading, error, data, sendRequest, reqExtra, reqIdentifier } = useHttp();
+  const { isLoading, error, data, sendRequest, reqExtra, reqIdentifier, clear } = useHttp();
   // const [httpState, dispatchHttp] = useReducer(httpReducer, { loading: false, error: null })
   // const [userIngredients, setUserIngredients] = useState([]);
   // const [isLoading, setIsLoading] = useState(false);
@@ -82,7 +82,7 @@ function Ingredients() {
     //   ...prevIngredients,
     //   { id: responseData.id, ...ingredient },
     // ]))
-  }, []);
+  }, [sendRequest]);
 
   const removeIngredientHandler = useCallback(ingredientId => {
     sendRequest(`http://localhost:1337/ingredients/${ingredientId}`,
@@ -114,6 +114,7 @@ function Ingredients() {
   }, [sendRequest])
 
   const clearError = useCallback(() => {
+    clear()
     // setError(null);
     // dispatchHttp({ type: 'CLEAR' })
   }, [])
