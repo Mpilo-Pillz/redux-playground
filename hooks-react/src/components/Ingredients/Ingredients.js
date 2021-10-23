@@ -27,7 +27,7 @@ const ingredientReducer = (currentIngredients, action) => {
 
 function Ingredients() {
   const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
-  const { isLoading, error, data, sendRequest } = useHttp();
+  const { isLoading, error, data, sendRequest, reqExtra, reqIdentifier } = useHttp();
   // const [httpState, dispatchHttp] = useReducer(httpReducer, { loading: false, error: null })
   // const [userIngredients, setUserIngredients] = useState([]);
   // const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +40,17 @@ function Ingredients() {
   //     })
   // }, [])
 
+  useEffect(() => {
+    if (!isLoading && !error && reqIdentifier === 'REMOVE_INGREDIENT') {
+      dispatch({ type: 'DELETE', id: reqExtra })
+    } else if (!isLoading && !error && reqIdentifier === 'ADD_INGREDIENT') {
+      dispatch({
+        type: 'ADD',
+        ingredient: { id: data.name, ...reqExtra }
+      })
+    }
+  }, [data, reqExtra, reqIdentifier, isLoading, error])
+
 
   // app got into a rerenderloop so we cache this function so it survives re-render cycles
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
@@ -48,6 +59,11 @@ function Ingredients() {
   }, [])
 
   const addIngredientHandler = useCallback((ingredient) => {
+    sendRequest('http://localhost:1337/ingredients', 'POST',
+      JSON.stringify(ingredient),
+      ingredient,
+      'ADD_INGREDIENT'
+    )
     // setIsLoading(true)
     // dispatchHttp({ type: 'SEND' }) // no need to specify this as a dependency for useCallback becuase it does not change between render cycles as it is managed by react
     // fetch('http://localhost:1337/ingredients', {
@@ -69,7 +85,12 @@ function Ingredients() {
   }, []);
 
   const removeIngredientHandler = useCallback(ingredientId => {
-    sendRequest(`http://localhost:1337/ingredients/${ingredientId}`, 'DELETE')
+    sendRequest(`http://localhost:1337/ingredients/${ingredientId}`,
+      'DELETE',
+      null,
+      ingredientId,
+      'REMOVE_INGREDIENT'
+    )
     // setIsLoading(true);
     // dispatchHttp({ type: 'SEND' })
     // fetch(`http://localhost:1337/ingredients/${ingredientId}`, {
