@@ -1,17 +1,18 @@
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, FC } from "react";
 
-export const NewTodo = () => {
+export const NewTodo: FC<{ onAddTodo: (text: string) => void }> = (props) => {
   const todoTextInputRef = useRef<HTMLInputElement>(null);
 
   const submitHandler = (event: FormEvent) => {
     event.preventDefault();
 
-    const enteredText = todoTextInputRef.current?.value;
+    const enteredText = todoTextInputRef.current!.value;
 
     if (enteredText?.trim().length === 0) {
       // throw error
       return;
     }
+    props.onAddTodo(enteredText);
   };
 
   return (
