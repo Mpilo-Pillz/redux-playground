@@ -6,7 +6,12 @@ function App() {
 
   return (
     <div className="App">
-      <Todos items={["LEarn React", "Learn TypeSCript"]} />
+      <Todos
+        items={[
+          { id: "1", text: "LEarn React" },
+          { id: "2", text: "Learn TypeSCript" },
+        ]}
+      />
     </div>
   );
 }
