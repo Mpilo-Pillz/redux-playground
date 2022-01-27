@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import { Formik, Field, FormikContextType } from 'formik';
-import {Button, TextField } from "@material-ui/core";
+import { Formik } from 'formik';
+import {Button, TextField, Field } from "@material-ui/core";
 
 function App() {
  
@@ -16,13 +16,11 @@ function App() {
     }}>
       {
         ({values, isSubmitting, handleChange, handleBlur, handleSubmit}) => (
-          <Form>
-            <div>
-            <Field placeholder="firstName" name="firstName" type="input" as={TextField} />
-            </div>
-            <div>
-            <Field placeholder="lastName"name="lastName" type="input" as={TextField} />
-            </div>
+          <form onSubmit={handleSubmit}>
+            <Field name="firstName" type="input" as={TextField}/>
+            <TextField name="firstName" value={values.firstName} onChange={handleChange} onBlur={handleBlur}/>
+            <Field name="lastName" type="input" />
+            <TextField name="lastName" value={values.lastName} onChange={handleChange} onBlur={handleBlur}/>
             <div>
             <Button disabled={isSubmitting} type="submit">Submit</Button>
             </div>
@@ -30,7 +28,7 @@ function App() {
               {JSON.stringify(values, null, 2)}
             </pre>
             
-          </Form>
+          </form>
         )
       }
     </Formik>
