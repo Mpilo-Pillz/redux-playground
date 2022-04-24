@@ -1,6 +1,20 @@
 import "./App.css";
-import { Field, Form, Formik } from "formik";
+import { Field, FieldAttributes, Form, Formik, useField } from "formik";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Radio,
+  TextField,
+} from "@mui/material";
 
+type MyRadioProps = { label: string } & FieldAttributes<{}>;
+
+const MyRadio: React.FC<MyRadioProps> = ({ label, ...props }) => {
+  const [field] = useField(props);
+
+  return <FormControlLabel {...field} control={<Radio />} label={label} />;
+};
 function App() {
   return (
     <Formik
@@ -22,21 +36,36 @@ function App() {
       {({ values, isSubmitting }) => (
         <Form>
           {/* <Field name="firstName" type="input" as{TextField} /> */}
-          <Field placeholder="first name" name="firstName" type="input" />
-          <Field placeholder="last name" name="lastName" type="input" />
+          <Field
+            placeholder="first name"
+            name="firstName"
+            type="input"
+            as={TextField}
+          />
+          <Field
+            placeholder="last name"
+            name="lastName"
+            type="input"
+            as={TextField}
+          />
           <Field name="isTall" type="checkbox" />
           <div>cookies:</div>
-          <Field name="cookies" type="checkbox" value="chocolate chip" />
-          <Field name="cookies" type="checkbox" value="oreo" />
-          <Field name="cookies" type="checkbox" value="tennis" />
+          <Field
+            name="cookies"
+            type="checkbox"
+            value="chocolate chip"
+            as={Checkbox}
+          />
+          <Field name="cookies" type="checkbox" value="oreo" as={Checkbox} />
+          <Field name="cookies" type="checkbox" value="tennis" as={Checkbox} />
           <div>yoghurt</div>
-          <Field name="yoghurt" type="radio" value="peach" />
-          <Field name="yoghurt" type="radio" value="granadilla" />
-          <Field name="yoghurt" type="radio" value="plain" />
+          <Field name="yoghurt" type="radio" value="peach" as={Radio} />
+          <Field name="yoghurt" type="radio" value="granadilla" as={Radio} />
+          <Field name="yoghurt" type="radio" value="plain" as={Radio} />
           <div>
-            <button disabled={isSubmitting} type="submit">
+            <Button disabled={isSubmitting} type="submit">
               Submit
-            </button>
+            </Button>
           </div>
           <pre>{JSON.stringify(values, null, 2)}</pre>
         </Form>
