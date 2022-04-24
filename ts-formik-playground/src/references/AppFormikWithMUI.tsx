@@ -1,4 +1,3 @@
-import "./App.css";
 import { Field, FieldAttributes, Form, Formik, useField } from "formik";
 import {
   Button,
