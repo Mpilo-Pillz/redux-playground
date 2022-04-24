@@ -59,15 +59,9 @@ function App() {
           <Field name="cookies" type="checkbox" value="oreo" as={Checkbox} />
           <Field name="cookies" type="checkbox" value="tennis" as={Checkbox} />
           <div>yoghurt</div>
-
-          <MyRadio name="yoghurt" type="radio" value="peach" label="Peach" />
-          <MyRadio
-            name="yoghurt"
-            type="radio"
-            value="granadilla"
-            label="Granadilla"
-          />
-          <MyRadio name="yoghurt" type="radio" value="plain" label="Plain" />
+          <Field name="yoghurt" type="radio" value="peach" as={Radio} />
+          <Field name="yoghurt" type="radio" value="granadilla" as={Radio} />
+          <Field name="yoghurt" type="radio" value="plain" as={Radio} />
           <div>
             <Button disabled={isSubmitting} type="submit">
               Submit
