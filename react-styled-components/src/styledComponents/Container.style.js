@@ -5,4 +5,8 @@ width: 100vw;
 height: 100vh;
 background-color: lightblue;
 
+&:hover {
+    background-color: coral;
+}
+
 `
