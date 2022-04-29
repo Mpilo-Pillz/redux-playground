@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const AppContainer = styled.div`
-width: 100vw;
-height: 100vh;
+width: 50vw;
+height: 50vh;
 background-color: lightblue;
 
 &:hover {

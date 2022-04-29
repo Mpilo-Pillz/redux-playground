@@ -1,10 +1,12 @@
 import { Button, ButtonLabel, CustomButton } from "./styledComponents/Button.style";
 import { AppContainer } from "./styledComponents/Container.style";
-import './App.css'
+import { GlobalStyles } from './GlobalStyles.style';
+// import './App.css'
 
 function App() {
   return (
     <AppContainer >
+      <GlobalStyles />
       <Button backgroundColor="red">
         <ButtonLabel>
         Click me
