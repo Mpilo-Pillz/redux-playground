@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const useHttp = (requestConfig, applyData) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
 
-    const sendRequest = async (taskText) => {
+    const sendRequest = useCallback(async () => {
         setIsLoading(true);
         setError(null);
         try {
@@ -28,7 +28,9 @@ const useHttp = (requestConfig, applyData) => {
             setError(err.message || 'Something went wrong!');
         }
         setIsLoading(false);
-    };
+    }, [requestConfig, applyData])
+    // requestCongig and Apply data resulted in an infinite rerender as they too are objects
+    // To fix we wrapped transfored taskes in a useCallback
 
     return {
         isLoading,
@@ -38,3 +40,29 @@ const useHttp = (requestConfig, applyData) => {
 }
 
 export default useHttp;
+
+/**
+ * State configured in the custom hook is used by the component
+ *  state in custom hook is attached and implicityly used by the component calling the custom hook
+ * this will trigger app component to rerender / re evaluated. Calling the custom hook again
+ *  re creating the send Request function  returing a new function object (creating a new object in memory)
+ * Use Effect running again enerting a loop
+ * Go wrap sendRequest in a use call back
+ * 
+ * 
+ * When app js rerenders fetch tasks is recreated
+ *  functions are objects in javascript
+ *  everytime a functionn is recreated in javascript
+ *  even if it creates the same logic it is treated as a brand new value/ it is a brand new object in memory
+ * thus uuseEffect will re execute it
+ * 
+ * So go wrap the functions created inside components in useCallback
+ */
+
+
+
+
+
+
+
+
