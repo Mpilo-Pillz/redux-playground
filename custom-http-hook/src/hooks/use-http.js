@@ -1,11 +1,11 @@
 import { useState, useCallback } from "react";
 
-const useHttp = (requestConfig, applyData) => {
+const useHttp = (applyData) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
 
-    const sendRequest = useCallback(async () => {
+    const sendRequest = useCallback(async (requestConfig) => {
         setIsLoading(true);
         setError(null);
         try {
@@ -28,9 +28,11 @@ const useHttp = (requestConfig, applyData) => {
             setError(err.message || 'Something went wrong!');
         }
         setIsLoading(false);
-    }, [requestConfig, applyData])
+    }, [applyData])
     // requestCongig and Apply data resulted in an infinite rerender as they too are objects
     // To fix we wrapped transfored taskes in a useCallback
+    // we then removed requestConfig from the dependency array and also no longer passed it as an argument to useHttp
+    // we pass it as an argument to sendRequest thus it is no longer necesarry as a dependency
 
     return {
         isLoading,
